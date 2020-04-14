@@ -98,7 +98,8 @@ func (fr FrameReader) Process(r io.Reader) (uint32, uint32, uint32, uint32, erro
 	return fr.Compute(r)
 }
 
-// Average is an exported processing function which can be attached to the FrameReader.
+// Average is an exported processing function which can be attached to the FrameReader. It computes the average
+// value of each pixel within the Frame and returns those values.
 func Average(r io.Reader) (uint32, uint32, uint32, uint32, error) {
 	m, _, err := image.Decode(r)
 	if err != nil {
