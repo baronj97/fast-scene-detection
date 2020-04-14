@@ -10,7 +10,7 @@ import (
 func TestNewFrame(t *testing.T) {
 	testCases := []struct {
 		name  string
-		num   int
+		id    int
 		red   uint32
 		green uint32
 		blue  uint32
@@ -19,24 +19,24 @@ func TestNewFrame(t *testing.T) {
 	}{
 		{
 			name:  "successful-frame",
-			num:   1,
+			id:    1,
 			red:   100,
 			green: 200,
 			blue:  0,
 			alpha: 0,
 			want: Frame{
-				num: 1,
-				r:   100,
-				g:   200,
-				b:   0,
-				a:   0,
+				id: 1,
+				r:  100,
+				g:  200,
+				b:  0,
+				a:  0,
 			},
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			got := NewFrame(tc.num, tc.red, tc.green, tc.blue, tc.alpha)
+			got := NewFrame(tc.id, tc.red, tc.green, tc.blue, tc.alpha)
 			if !reflect.DeepEqual(tc.want, got) {
 				t.Errorf("got '%v', want '%v", got, tc.want)
 			}
@@ -140,16 +140,16 @@ func TestAlpha(t *testing.T) {
 	}
 }
 
-func TestNum(t *testing.T) {
+func TestID(t *testing.T) {
 	testCases := []struct {
 		name string
 		got  Frame
 		want int
 	}{
 		{
-			name: "successful-num",
+			name: "successful-ID",
 			got: Frame{
-				num: 1,
+				id: 1,
 			},
 			want: 1,
 		},
@@ -157,8 +157,8 @@ func TestNum(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			if tc.got.Num() != tc.want {
-				t.Errorf("got '%v' want '%v'", tc.got.Num(), tc.want)
+			if tc.got.ID() != tc.want {
+				t.Errorf("got '%v' want '%v'", tc.got.ID(), tc.want)
 			}
 		})
 	}

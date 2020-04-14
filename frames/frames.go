@@ -25,23 +25,23 @@ type Processor interface {
 	Process(io.Reader) (uint32, uint32, uint32, uint32, error)
 }
 
-// Frame represents an i-frame by maintaining a single value for each color channel and the number of frame.
+// Frame represents an i-frame by maintaining a single value for each color channel and the frame id.
 type Frame struct {
-	num int    // The frame number within the video
-	r   uint32 // Red color channel value
-	g   uint32 // Green color channel value
-	b   uint32 // Blue color channel value
-	a   uint32 // Alpha blending factor value
+	id int    // Frame id (ie, the number i-frame that was sampled, NOT the i-frame within the video itself)
+	r  uint32 // Red color channel value
+	g  uint32 // Green color channel value
+	b  uint32 // Blue color channel value
+	a  uint32 // Alpha blending factor value
 }
 
 // NewFrame creates a Frame structure.
-func NewFrame(num int, r, g, b, a uint32) Frame {
+func NewFrame(id int, r, g, b, a uint32) Frame {
 	return Frame{
-		num: num,
-		r:   r,
-		g:   g,
-		b:   b,
-		a:   a,
+		id: id,
+		r:  r,
+		g:  g,
+		b:  b,
+		a:  a,
 	}
 }
 
@@ -60,9 +60,9 @@ func (f Frame) Blue() uint32 {
 	return f.b
 }
 
-// Num returns the number of the frame.
-func (f Frame) Num() int {
-	return f.num
+// ID returns the ID of the frame.
+func (f Frame) ID() int {
+	return f.id
 }
 
 // Alpha returns the value of the alpha blending factor.
