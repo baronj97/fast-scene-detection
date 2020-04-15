@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Added
 
+- [Issue #4](https://github.com/baronj97/fast-scene-detection/issues/4) - Implement the frames package.
+
 ### Changed
 
 ### Fixed
