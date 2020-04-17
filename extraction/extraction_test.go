@@ -61,7 +61,7 @@ func TestIFrames(t *testing.T) {
 			err := es.IFrames(tc.n, tc.video, tc.dir)
 
 			if err != nil {
-				t.Fatalf("error in iFrames: err = %v", err)
+				t.Errorf("error in iFrames: err = %v", err)
 			}
 		})
 	}
@@ -91,7 +91,7 @@ func TestGenerateFrames(t *testing.T) {
 			err := tc.f.GenerateFrames(tc.n, tc.video, tc.dir)
 
 			if err != nil {
-				t.Fatalf("error in Generateframes: err = %v", err)
+				t.Errorf("error in Generateframes: err = %v", err)
 			}
 		})
 	}

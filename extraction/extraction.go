@@ -1,3 +1,4 @@
+// Package extraction contains an API to accept a video file, extracting the i-frames from it by using FFMPEG, and saving them as output.
 package extraction
 
 import (
@@ -5,14 +6,14 @@ import (
 	"strconv"
 )
 
-// Extractor is an abstracted interface for generating the i-frames. It contains a single method,
-// GenerateFrames, which accepts the interval of i-frames to take, the path to the video file, and
-// the output directory.
+// Extractor is an abstracted interface for generating the i-frames. It contains a single method, GenerateFrames, which accepts the 
+// interval of i-frames to take, the path to the video file, and the output directory.
 type Extractor interface {
 	GenerateFrames(n int, video string, dir string) error
 }
 
-// ExtractionService hides the Extractor interface.
+// ExtractionService provides an interface into generating i-frames from an input video file and ouputs the results based on the user
+// defined output directory. 
 type ExtractionService struct {
 	extractor Extractor
 }
@@ -34,11 +35,10 @@ type FFMPEGExtractor struct {
 	Path string
 }
 
-// GenerateFrames is an unexported processing function attached to FMMPEGExtractor. It will
-// utilize FFMPEG in order to extract a frame for every n frames in the video and store the
-// ouputs to the dir path.
+// GenerateFrames is an unexported processing function attached to FMMPEGExtractor. It will utilize FFMPEG in order to extract a frame 
+// for every n frames in the video and store the ouputs to the dir path.
 func (f FFMPEGExtractor) GenerateFrames(n int, video string, dir string) error {
-	cmd := exec.Command("ffmpeg", "-i", video, "-vf", "select=not(mod(n\\,"+strconv.Itoa(n)+"))",
+	cmd := exec.Command(f.Path, "-i", video, "-vf", "select=not(mod(n\\,"+strconv.Itoa(n)+"))",
 		"-vsync", "vfr", dir+"frame%03d.png")
 
 	return cmd.Run()
